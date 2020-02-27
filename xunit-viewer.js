@@ -12,9 +12,9 @@ const getDescription = require('./src/cli/get-description')
 
 module.exports = async (args) => {
   const logger = Logger(args.noColor)
-
+  console.log({args})
   const results = args.results
-  if (!fs.existsSync(results)) {
+  if (!fs.existsSync(results) && !args.xml ) {
     const { showHelp } = require('./src/cli/args')
     showHelp()
     console.log(logger.error('\n The folder/file:'), logger.file(results), logger.error('does not exist'))
@@ -22,7 +22,7 @@ module.exports = async (args) => {
   }
 
   const runXunitViewer = async () => {
-    const files = getFiles(logger, args)
+    const files = args.xml ? [{file:'text content', contents: args.xml}] : getFiles(logger, args)
     const suites = await getSuites(logger, files)
     const description = getDescription(suites)
     if (args.console) terminal(suites, logger, description, args)
