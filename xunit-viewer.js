@@ -28,7 +28,7 @@ module.exports = async (args) => {
     if (args.console) terminal(suites, logger, description, args)
     else{
       const result = render(logger, files, description, args)
-      if (args.output !== false) {
+      if (typeof args.output === 'string') {
         const outputFile = path.resolve(process.cwd(), args.output)
         fs.writeFileSync(outputFile, result)
         console.log('Written to:', logger.file(outputFile))
