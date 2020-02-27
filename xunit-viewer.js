@@ -34,7 +34,6 @@ module.exports = async (args) => {
         console.log('Written to:', logger.file(outputFile))
       }
       else {
-        console.log('returning result ', {result})
         return result
       }
     }
