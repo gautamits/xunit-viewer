@@ -12,7 +12,6 @@ const getDescription = require('./src/cli/get-description')
 
 module.exports = async (args) => {
   const logger = Logger(args.noColor)
-  console.log({args})
   const results = args.results
   if (!fs.existsSync(results) && !args.xml ) {
     const { showHelp } = require('./src/cli/args')
