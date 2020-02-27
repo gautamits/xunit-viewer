@@ -26,11 +26,16 @@ module.exports = async (args) => {
     const suites = await getSuites(logger, files)
     const description = getDescription(suites)
     if (args.console) terminal(suites, logger, description, args)
-    if (args.output !== false) {
+    else{
       const result = render(logger, files, description, args)
-      const outputFile = path.resolve(process.cwd(), args.output)
-      fs.writeFileSync(outputFile, result)
-      console.log('Written to:', logger.file(outputFile))
+      if (args.output !== false) {
+        const outputFile = path.resolve(process.cwd(), args.output)
+        fs.writeFileSync(outputFile, result)
+        console.log('Written to:', logger.file(outputFile))
+      }
+      else {
+        return result
+      }
     }
   }
 
